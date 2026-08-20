@@ -1,0 +1,18 @@
+{
+  "name": "Oupa Attie Crafford",
+  "short_name": "Oupa Attie",
+  "description": "Kom kuier. ’n Plek om by Oupa Attie te sit — foto’s, video’s en sy stem.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0b1722",
+  "theme_color": "#0b1722",
+  "lang": "af",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
