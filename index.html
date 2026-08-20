@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="af">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Oupa Attie Crafford · Kom kuier</title>
+    <meta
+      name="description"
+      content="’n Plek om Oupa Attie te kuier — liefhebber van die see, die bosveld, en ’n lag wat ’n huis kon volmaak. Foto’s, video’s en sy stem."
+    />
+    <meta name="theme-color" content="#0b1722" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Oupa Attie" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <meta property="og:title" content="Oupa Attie Crafford · Kom kuier" />
+    <meta property="og:description" content="As jy hom mis, kom sit. ’n Tydlyn van foto’s, video’s en stemnotas." />
+    <meta property="og:image" content="assets/photos/portret-2021.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500;1,600&family=Figtree:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <a class="skip" href="#letter">Spring na die brief</a>
+    <audio id="see-audio" src="assets/audio/see.wav" loop preload="auto"></audio>
+
+    <div class="gate" id="gate">
+      <div class="gate-inner">
+        <div class="gate-horizon"></div>
+        <p class="gate-kicker" id="gate-kicker">Kom kuier</p>
+        <h1>Oupa Attie</h1>
+        <p class="gate-family">Crafford</p>
+        <p class="gate-line">Liefhebber van die see, die bosveld, en ’n lag wat ’n huis kon volmaak.</p>
+        <button class="btn btn-gold" id="gate-enter" type="button">Maak die stoep oop</button>
+      </div>
+    </div>
+
+    <header class="nav" id="nav">
+      <a class="nav-logo" href="#top">Oupa Attie</a>
+      <nav class="nav-links" aria-label="Hoofkieslys">
+        <a href="#letter">Kuier</a>
+        <a href="#worlds">See &amp; Veld</a>
+        <a href="#timeline">Tydlyn</a>
+        <a href="#voice">Sy stem</a>
+        <a href="#album">Album</a>
+        <a href="#stoep">Stoep</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="btn btn-ghost" type="button" data-sit>Sit by hom</button>
+        <button class="icon-btn is-on" type="button" data-sound aria-label="See se geruis" aria-pressed="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M3 12c2-4 4-4 6 0s4 4 6 0 4-4 6 0" />
+            <path d="M3 17c2-4 4-4 6 0s4 4 6 0 4-4 6 0" />
+          </svg>
+        </button>
+        <button class="icon-btn nav-toggle" id="nav-toggle" type="button" aria-label="Kieslys">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M4 7h16M4 12h16M4 17h10" />
+          </svg>
+        </button>
+      </div>
+    </header>
+    <div class="nav-panel" id="nav-panel">
+      <a href="#letter">Kuier</a>
+      <a href="#worlds">See &amp; Veld</a>
+      <a href="#timeline">Tydlyn</a>
+      <a href="#voice">Sy stem</a>
+      <a href="#album">Album</a>
+      <a href="#stoep">Die stoep</a>
+      <button class="btn btn-gold" type="button" data-sit>Sit by hom</button>
+    </div>
+
+    <section class="hero" id="top">
+      <img
+        class="hero-bg"
+        src="assets/images/hero-stoep.jpg"
+        alt="Twee weerkaaide stoele op ’n houtstoep oor die see met sonsondergang"
+        fetchpriority="high"
+      />
+      <div class="hero-shade"></div>
+      <div class="hero-copy">
+        <img class="hero-portrait" src="assets/photos/portret-2021.jpg" alt="Oupa Attie" />
+        <p class="eyebrow">’n Plek om te kuier</p>
+        <h1>Oupa Attie</h1>
+        <p class="hero-years"></p>
+        <p class="hero-tag">Liefhebber van die see, die bosveld, en ’n lag wat ’n huis kon volmaak.</p>
+        <div class="hero-actions">
+          <a class="btn btn-gold" href="#timeline">Loop die tydlyn</a>
+          <button class="btn btn-ghost" type="button" data-sit>Sit by hom</button>
+        </div>
+      </div>
+      <button class="icon-btn sound-fab is-on" type="button" data-sound aria-label="See se geruis">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <path d="M3 12c2-4 4-4 6 0s4 4 6 0 4-4 6 0" />
+          <path d="M3 17c2-4 4-4 6 0s4 4 6 0 4-4 6 0" />
+        </svg>
+      </button>
+    </section>
+
+    <main>
+      <section class="section letter-section" id="letter">
+        <article class="letter-paper reveal">
+          <p class="letter-date">Wanneer jy hom nodig het</p>
+          <div id="letter-body"></div>
+          <p class="letter-sign">Met liefde, van die stoep af.</p>
+        </article>
+      </section>
+
+      <section class="worlds" id="worlds">
+        <a class="world world-sea" href="#timeline" data-jump-filter="sea">
+          <img src="assets/images/sea-open.jpg" alt="Oop oseaan laatmiddag" />
+          <div class="world-shade"></div>
+          <div class="world-copy">
+            <span>01 · Die water</span>
+            <h2>Die see</h2>
+            <p>Sout, wind, en die lang horison.</p>
+          </div>
+        </a>
+        <a class="world world-veld" href="#timeline" data-jump-filter="veld">
+          <img src="assets/images/veld-acacia.jpg" alt="Doringbome teen ’n bosveldsonsondergang" />
+          <div class="world-shade"></div>
+          <div class="world-copy">
+            <span>02 · Die stof</span>
+            <h2>Die bosveld</h2>
+            <p>Doringbome, rooi grond, ’n hemel wat die waarheid praat.</p>
+          </div>
+        </a>
+      </section>
+
+      <section class="laugh" id="laugh">
+        <img class="laugh-bg" src="assets/images/firelight.jpg" alt="’n Braaivuur in die skemer" id="laugh-bg" />
+        <div class="laugh-shade"></div>
+        <div class="laugh-copy reveal">
+          <p class="section-kicker">03 · Sy lag</p>
+          <h2>’n Lag wat ’n huis kon volmaak</h2>
+          <p class="section-lead">
+            Hy het ’n wonderlike sin vir humor gehad. Die hande in die lug, die pyp, die storie by die vuur.
+            As jy die stemnota kry wat op daardie lag eindig, hoort dit hier.
+          </p>
+        </div>
+      </section>
+
+      <section class="section timeline" id="timeline">
+        <div class="wrap">
+          <div class="timeline-head">
+            <div>
+              <p class="section-kicker">Die pad</p>
+              <h2 class="section-title">Tydlyn</h2>
+              <p class="section-lead">
+                Loop dit stadig. Sy foto’s, sy ritte, die see en die veld — elke herinnering op sy plek, van toe tot nou.
+              </p>
+            </div>
+            <div class="filters" role="tablist" aria-label="Sif herinneringe">
+              <button class="filter is-on" type="button" data-filter="all">Alles</button>
+              <button class="filter" type="button" data-filter="sea">Die see</button>
+              <button class="filter" type="button" data-filter="veld">Die bosveld</button>
+              <button class="filter" type="button" data-filter="laugh">Sy lag</button>
+              <button class="filter" type="button" data-filter="ride">Motorfiets</button>
+              <button class="filter" type="button" data-filter="home">Die stoep</button>
+            </div>
+          </div>
+          <div class="year-nav" id="year-nav"></div>
+          <div class="timeline-track" id="timeline-track"></div>
+        </div>
+      </section>
+
+      <section class="section voice" id="voice">
+        <div class="wrap">
+          <p class="section-kicker">Luister</p>
+          <h2 class="section-title">Sy stem</h2>
+          <p class="section-lead">
+            Sy stemnotas woon hier — die Sondag-hallo, die grap wat hy nie kon klaarmaak nie, die ek lief julle.
+            Druk speel wanneer jy hom moet hoor.
+          </p>
+
+          <div class="voice-empty" id="voice-empty">
+            <h3>Die radio is warm. Dit wag.</h3>
+            <p>
+              Sit ’n <code>.m4a</code>, <code>.mp3</code> of <code>.wav</code> in
+              <code>assets/voices/</code>, en noem dit by ’n herinnering in <code>js/content.js</code>.
+              Die eerste keer dat jy dit speel, word hierdie kamer syne.
+            </p>
+          </div>
+
+          <div class="radio" id="radio" hidden>
+            <div class="radio-face">
+              <p class="radio-label">Oupa Attie · Frekwensie</p>
+              <h3 class="radio-title" id="radio-title">Sy stem</h3>
+              <p class="radio-note" id="radio-note">Kies ’n stemnota</p>
+              <div class="wave" id="wave" aria-hidden="true"></div>
+              <div class="radio-controls">
+                <button class="play-main" id="play-main" type="button" aria-label="Speel">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </button>
+                <input class="seek" id="seek" type="range" min="0" max="100" value="0" aria-label="Soek" />
+                <span class="time" id="time">0:00 / 0:00</span>
+              </div>
+              <p class="transcript" id="transcript"></p>
+            </div>
+            <div class="playlist" id="playlist"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section album" id="album">
+        <div class="wrap">
+          <p class="section-kicker">Kyk</p>
+          <h2 class="section-title">Album</h2>
+          <p class="section-lead">
+            Al die foto’s, in die orde van die tydlyn. Tik op enige prent om daarby te sit.
+          </p>
+          <div class="masonry" id="masonry"></div>
+          <p class="album-empty" id="album-note" hidden></p>
+        </div>
+      </section>
+
+      <section class="section stoep" id="stoep">
+        <img class="stoep-bg" src="assets/images/veld-night.jpg" alt="Sterre oor die bosveld" />
+        <div class="stoep-shade"></div>
+        <div class="wrap">
+          <p class="section-kicker">Bly</p>
+          <h2 class="section-title">Die stoep</h2>
+          <p class="section-lead">
+            Steek ’n lantern aan. Los ’n paar woorde. Die gloed bly op hierdie toestel, soos ’n stoel wat nog warm is.
+          </p>
+          <div class="lanterns" id="lanterns" aria-label="Lanterns vir Attie"></div>
+          <p class="lantern-count" id="lantern-count"></p>
+          <div class="letters" id="letters"></div>
+          <form class="guest-form" id="guest-form">
+            <input id="guest-from" name="from" type="text" required placeholder="Jou naam" autocomplete="name" />
+            <textarea id="guest-text" name="text" required placeholder="’n Paar woorde vir Oupa Attie…"></textarea>
+            <button class="btn btn-gold" type="submit">Los dit op die stoep</button>
+            <p class="form-note">
+              Briewe wat jy skryf bly in hierdie blaaier, sodat die kuier privaat bly — tensy jy hulle in
+              <code>js/content.js</code> sit vir die hele familie.
+            </p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <em>Rus sag, Oupa. Tot siens — nie totsiens vir altyd nie.</em>
+      <p>Crafford-familie · ’n stoep op die internet</p>
+      <p class="how-to">
+        <strong>’n Herinnering bysit:</strong> sit foto’s in <code>assets/photos</code>, video’s in
+        <code>assets/videos</code>, stemnotas in <code>assets/voices</code> — maak dan
+        <code>js/content.js</code> oop.
+      </p>
+    </footer>
+
+    <nav class="dock" aria-label="Kamers">
+      <a href="#top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <path d="M4 11l8-7 8 7v9H4z" />
+        </svg>
+        Kuier
+      </a>
+      <a href="#timeline">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <path d="M12 5v14M5 9h14M5 15h10" />
+        </svg>
+        Tydlyn
+      </a>
+      <a href="#voice">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <path d="M4 12c2-4 4-4 6 0s4 4 6 0 4-4 6 0" />
+        </svg>
+        Stem
+      </a>
+      <a href="#album">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <rect x="4" y="5" width="16" height="14" rx="2" />
+          <path d="M4 15l4-4 4 4 3-3 5 5" />
+        </svg>
+        Album
+      </a>
+      <a href="#stoep">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <path d="M12 3v4M9 21h6M8 11h8v10H8z" />
+          <circle cx="12" cy="8" r="2" />
+        </svg>
+        Stoep
+      </a>
+    </nav>
+
+    <div class="overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto">
+      <button class="overlay-close" id="lightbox-close" type="button" aria-label="Maak toe">×</button>
+      <button class="overlay-nav prev" id="lightbox-prev" type="button" aria-label="Vorige">‹</button>
+      <img id="lightbox-image" alt="" />
+      <button class="overlay-nav next" id="lightbox-next" type="button" aria-label="Volgende">›</button>
+      <p class="overlay-caption" id="lightbox-caption"></p>
+    </div>
+
+    <div class="overlay" id="video-modal" role="dialog" aria-modal="true" aria-label="Video">
+      <button class="overlay-close" id="video-close" type="button" aria-label="Maak toe">×</button>
+      <video id="video-el" controls playsinline></video>
+      <p class="overlay-caption" id="video-caption"></p>
+    </div>
+
+    <div class="sit" id="sit" role="dialog" aria-modal="true" aria-label="Sit by hom">
+      <div class="sit-frame" id="sit-frame"></div>
+      <div class="sit-veil"></div>
+      <div class="sit-ui">
+        <button class="btn btn-ghost" id="sit-toggle" type="button">Pouseer</button>
+        <button class="btn btn-gold" id="sit-close" type="button">Verlaat die stoel</button>
+      </div>
+      <div class="sit-copy">
+        <h2 id="sit-title">Oupa Attie</h2>
+        <p id="sit-cap"></p>
+      </div>
+      <div class="sit-progress"><i id="sit-bar"></i></div>
+    </div>
+
+    <script src="js/content.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
