@@ -4,6 +4,18 @@
 
 Liefhebber van die see, die bosveld, en ’n lag wat ’n huis kon volmaak.
 
+## GitHub Pages
+
+Live: <https://mumoxa.github.io/Crafford/>
+
+As die skakel nog nie oopmaak nie (die repo is tans privaat):
+
+1. GitHub → **Settings** → **General** → maak die repo **Public**
+2. **Settings** → **Pages** → Source: **GitHub Actions**
+   (of *Deploy from a branch* → `main` → `/ (root)`)
+
+Die werkvloei in `.github/workflows/pages.yml` sit die stoep dan uit.
+
 ## Maak oop
 
 ```bash
