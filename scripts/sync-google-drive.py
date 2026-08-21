@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import io, json, os, re
+import json, os, re
 from pathlib import Path
 from datetime import datetime
 from google.oauth2 import service_account
@@ -8,26 +8,33 @@ from googleapiclient.http import MediaIoBaseDownload
 from PIL import Image, ImageOps
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "assets" / "photos" / "google-drive"
+PHOTO_OUT = ROOT / "assets" / "photos" / "google-drive"
+VOICE_OUT = ROOT / "assets" / "voices" / "google-drive"
 JS = ROOT / "js" / "google-drive-contributions.js"
 MANIFEST = ROOT / "data" / "google-drive-manifest.json"
 SCOPES = ["https://www.googleapis.com/auth/drive.readonly"]
 MONTHS = ["Januarie","Februarie","Maart","April","Mei","Junie","Julie","Augustus","September","Oktober","November","Desember"]
 IMAGE_MIMES = {"image/jpeg","image/png","image/webp","image/gif","image/bmp","image/heic","image/heif"}
+AUDIO_MIMES = {
+    "audio/mpeg", "audio/mp3", "audio/mp4", "audio/x-m4a", "audio/m4a",
+    "audio/wav", "audio/x-wav", "audio/aac", "audio/ogg", "application/ogg",
+    "audio/opus", "audio/amr", "audio/3gpp", "audio/3gpp2",
+}
+AUDIO_EXTS = {".oga", ".ogg", ".opus", ".m4a", ".mp3", ".wav", ".aac", ".amr", ".3gp", ".3gpp"}
 BATCH_SIZE = int(os.environ.get("GOOGLE_DRIVE_BATCH_SIZE", "40"))
 MAX_SIDE = 1800
 JPEG_QUALITY = 85
 
 
-def safe_name(name):
+def safe_stem(name):
     stem = Path(name).stem
-    stem = re.sub(r"[^A-Za-z0-9._-]+", "-", stem).strip("-_") or "foto"
+    stem = re.sub(r"[^A-Za-z0-9._-]+", "-", stem).strip("-_") or "media"
     return stem[:90]
 
 
 def filename_date(name):
     patterns = [
-        r"(?:IMG|PXL|PANO|MVIMG)[ _-]?(20\d{2})(\d{2})(\d{2})",
+        r"(?:IMG|VID|PXL|PANO|MVIMG)[ _-]?(20\d{2})(\d{2})(\d{2})",
         r"(20\d{2})(\d{2})(\d{2})[_-]?\d{2,6}",
         r"(20\d{2})[-_.](\d{1,2})[-_.](\d{1,2})",
         r"\b(\d{1,2})-(\d{1,2})-(20\d{2})\b",
@@ -77,6 +84,16 @@ def save_manifest(manifest):
     MANIFEST.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
+def media_kind(f):
+    mime = (f.get("mimeType") or "").lower()
+    ext = Path(f.get("name", "")).suffix.lower()
+    if mime in IMAGE_MIMES or mime.startswith("image/"):
+        return "photo"
+    if mime in AUDIO_MIMES or mime.startswith("audio/") or ext in AUDIO_EXTS:
+        return "voice"
+    return None
+
+
 def list_files(service, folder_id):
     stack = [folder_id]
     while stack:
@@ -94,16 +111,17 @@ def list_files(service, folder_id):
             for f in res.get("files", []):
                 if f["mimeType"] == "application/vnd.google-apps.folder":
                     stack.append(f["id"])
-                elif f["mimeType"] in IMAGE_MIMES:
+                elif media_kind(f):
                     yield f
             token = res.get("nextPageToken")
             if not token:
                 break
 
 
-def download_raw(service, file_id, temp_path):
+def download_raw(service, file_id, dest):
+    dest.parent.mkdir(parents=True, exist_ok=True)
     req = service.files().get_media(fileId=file_id)
-    with open(temp_path, "wb") as fh:
+    with open(dest, "wb") as fh:
         d = MediaIoBaseDownload(fh, req)
         done = False
         while not done:
@@ -123,15 +141,25 @@ def optimise_image(src, dest):
 
 
 def sync_one(service, f):
-    OUT.mkdir(parents=True, exist_ok=True)
-    temp = OUT / (".tmp-" + f["id"])
-    dest = OUT / f"{f['id']}-{safe_name(f['name'])}.jpg"
-    download_raw(service, f["id"], temp)
-    try:
-        optimise_image(temp, dest)
-    finally:
-        temp.unlink(missing_ok=True)
-    return dest
+    kind = media_kind(f)
+    if kind == "photo":
+        PHOTO_OUT.mkdir(parents=True, exist_ok=True)
+        temp = PHOTO_OUT / (".tmp-" + f["id"])
+        dest = PHOTO_OUT / f"{f['id']}-{safe_stem(f['name'])}.jpg"
+        download_raw(service, f["id"], temp)
+        try:
+            optimise_image(temp, dest)
+        finally:
+            temp.unlink(missing_ok=True)
+        return kind, dest
+
+    ext = Path(f.get("name", "")).suffix.lower()
+    if ext not in AUDIO_EXTS:
+        ext = ".ogg" if (f.get("mimeType") or "").lower() in {"audio/ogg", "application/ogg", "audio/opus"} else ".m4a"
+    VOICE_OUT.mkdir(parents=True, exist_ok=True)
+    dest = VOICE_OUT / f"{f['id']}-{safe_stem(f['name'])}{ext}"
+    download_raw(service, f["id"], dest)
+    return "voice", dest
 
 
 def write_js(manifest):
@@ -143,9 +171,12 @@ def write_js(manifest):
         path = ROOT / rel
         if not path.exists():
             continue
-        dt = filename_date(meta.get("name", "")) or exif_date(path)
+        kind = meta.get("kind") or ("voice" if "/voices/" in rel else "photo")
+        dt = filename_date(meta.get("name", ""))
+        if not dt and kind == "photo":
+            dt = exif_date(path)
         key = (dt.year, dt.month) if dt else None
-        groups.setdefault(key, []).append((meta, path, dt))
+        groups.setdefault(key, []).append((meta, path, dt, kind))
 
     memories = []
     for key in sorted(groups, key=lambda k: (k is None, k or (9999, 99))):
@@ -163,13 +194,23 @@ def write_js(manifest):
             order = 99500
 
         photos = []
-        for meta, path, dt in sorted(vals, key=lambda x: x[0].get("name", "").lower()):
-            photos.append({
-                "src": path.relative_to(ROOT).as_posix(),
-                "caption": "Uit die familie se Google Drive",
-                "year": year,
-                "alt": f"Familiefoto van Oupa Attie — {label}",
-            })
+        voices = []
+        for meta, path, dt, kind in sorted(vals, key=lambda x: x[0].get("name", "").lower()):
+            rel = path.relative_to(ROOT).as_posix()
+            if kind == "voice":
+                voices.append({
+                    "src": rel,
+                    "title": Path(meta.get("name", "Stemnota")).stem,
+                    "date": label,
+                    "note": "Uit die familie se Google Drive",
+                })
+            else:
+                photos.append({
+                    "src": rel,
+                    "caption": "Uit die familie se Google Drive",
+                    "year": year,
+                    "alt": f"Familiefoto van Oupa Attie — {label}",
+                })
 
         memories.append({
             "id": mid,
@@ -179,8 +220,9 @@ def write_js(manifest):
             "era": "Gedeel deur die familie",
             "landscape": "family",
             "title": label if key else "Nog familieherinneringe",
-            "story": "Foto’s wat deur die familie in die gedeelde Google Drive-vak gevoeg is.",
+            "story": "Foto’s en stemnotas wat deur die familie in die gedeelde Google Drive-vak gevoeg is.",
             "photos": photos,
+            "voices": voices,
         })
 
     JS.write_text(
@@ -206,17 +248,25 @@ def main():
     pending = []
     for f in remote:
         old = manifest["files"].get(f["id"])
-        if not old or old.get("modifiedTime") != f.get("modifiedTime") or not (ROOT / old.get("path", "")).exists():
+        expected_kind = media_kind(f)
+        if (
+            not old
+            or old.get("modifiedTime") != f.get("modifiedTime")
+            or old.get("kind", expected_kind) != expected_kind
+            or not (ROOT / old.get("path", "")).exists()
+        ):
             pending.append(f)
 
-    print(f"Google Drive: {len(remote)} image(s) found")
+    photos_found = sum(1 for f in remote if media_kind(f) == "photo")
+    voices_found = sum(1 for f in remote if media_kind(f) == "voice")
+    print(f"Google Drive: {photos_found} photo(s), {voices_found} voice note(s) found")
     print(f"Already synced: {len(remote) - len(pending)}")
     print(f"Pending: {len(pending)}")
 
     processed = 0
     for f in pending[:BATCH_SIZE]:
         try:
-            dest = sync_one(service, f)
+            kind, dest = sync_one(service, f)
         except Exception as exc:
             print(f"Skipped {f['name']}: {exc}")
             continue
@@ -224,9 +274,10 @@ def main():
             "name": f["name"],
             "modifiedTime": f.get("modifiedTime", ""),
             "path": dest.relative_to(ROOT).as_posix(),
+            "kind": kind,
         }
         processed += 1
-        print("Synced:", f["name"])
+        print(f"Synced {kind}:", f["name"])
 
     save_manifest(manifest)
     write_js(manifest)
