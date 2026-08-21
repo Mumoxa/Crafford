@@ -52,4 +52,4 @@ if (window.CRAFFORD && Array.isArray(window.CRAFFORD.memories)) {
 }
 
 /* Load Google Drive contributions synchronously before app.js initializes. */
-document.write('<script src="js/google-drive-contributions.js"><\\/script>');
+document.write('<scr' + 'ipt src="js/google-drive-contributions.js"></scr' + 'ipt>');
