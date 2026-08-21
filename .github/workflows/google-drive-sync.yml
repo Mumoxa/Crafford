@@ -2,6 +2,11 @@ name: Sync Google Drive family photos
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/google-drive-sync.yml"
+      - "scripts/sync-google-drive.py"
   schedule:
     - cron: "17 */6 * * *"
 
