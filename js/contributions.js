@@ -23,6 +23,26 @@ window.CRAFFORD_CONTRIB = {
           note: "Stemnota van Pa"
         }
       ]
+    },
+    {
+      id: "boeremusiek-stokkie",
+      dateLabel: "Datum onbekend",
+      year: "",
+      order: 2,
+      era: "Sy stem",
+      landscape: "family",
+      title: "Pa en sy Boeremusiek stokkie",
+      story: "Pa en sy Boeremusiek stokkie.",
+      photos: [],
+      videos: [],
+      voices: [
+        {
+          src: "uploads/Pa en sy Boeremusiek stokkie.oga",
+          title: "Pa en sy Boeremusiek stokkie",
+          date: "Datum onbekend",
+          note: "Stemnota van Pa"
+        }
+      ]
     }
   ]
 };
