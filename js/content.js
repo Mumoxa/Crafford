@@ -25,6 +25,13 @@ window.CRAFFORD = {
   ],
   portrait: "assets/photos/portret-2021.jpg",
 
+  /* Deel-bladsy: vul hierdie in om die WhatsApp / e-pos kaarte te wys.
+     bv. whatsapp: "27 82 555 1234", email: "familie@voorbeeld.co.za" */
+  contribute: {
+    whatsapp: "",
+    email: "",
+  },
+
   letters: [
     {
       from: "Die familie",

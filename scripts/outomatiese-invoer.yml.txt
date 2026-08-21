@@ -1,0 +1,52 @@
+# EENMALIGE opstelling (vir die eienaar van die repo)
+# ---------------------------------------------------
+# Die agent mag nie self werfvloeie skep nie, so hier is die een vir knip-en-plak:
+#
+#  1. Maak https://github.com/Mumoxa/Crafford op jou foon/rekenaar
+#  2. Klik "Add file" -> "Create new file"
+#  3. Noem dit presies so:  .github/workflows/invoer.yml
+#  4. Plak die inhoud hier onder daarin en commit.
+#
+# Daarna: elke keer as iemand iets in uploads/ laai, sorteer die werf dit
+# self en sit dit op die tydlyn. (Dit kan ook met die hand gedraai word:
+# Actions -> "Voer familie-bydraes in" -> Run workflow.)
+#
+# -------------------------- KNIP HIERONDER --------------------------
+
+name: Voer familie-bydraes in
+
+on:
+  push:
+    branches: [main]
+    paths: ["uploads/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  invoer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install pillow
+
+      - name: Voer bydraes in en sorteer op die tydlyn
+        run: python3 scripts/import-contributions.py --src uploads
+
+      - name: Commit die nuwe foto's
+        run: |
+          git config user.name "stoep-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add assets js/contributions.js
+          if git diff --cached --quiet; then
+            echo "Niks nuuts nie."
+          else
+            git commit -m "Foto’s: familie-bydraes ingevoer en gesorteer"
+            git push
+          fi

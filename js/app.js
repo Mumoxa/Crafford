@@ -29,6 +29,7 @@
     renderTimeline();
     renderVoices();
     renderAlbum();
+    renderContribute();
     renderLetters();
     initGate();
     initNav();
@@ -116,6 +117,33 @@
       $$(".hero-portrait").forEach((img) => {
         img.src = C.portrait;
       });
+    }
+  }
+
+  function renderContribute() {
+    // WhatsApp / e-pos kaarte verskyn net as hulle in js/content.js gestel is.
+    const cfg = C.contribute || {};
+    const wa = $("#deel-whatsapp");
+    if (wa && cfg.whatsapp) {
+      const nr = String(cfg.whatsapp).replace(/[^0-9]/g, "");
+      const btn = $(".btn", wa);
+      if (btn && nr) {
+        btn.href =
+          "https://wa.me/" + nr +
+          "?text=" +
+          encodeURIComponent("’n Foto van Oupa Attie — vir die gedenkwerf");
+        wa.hidden = false;
+      }
+    }
+    const em = $("#deel-email");
+    if (em && cfg.email) {
+      const btn = $(".btn", em);
+      if (btn) {
+        btn.href =
+          "mailto:" + cfg.email +
+          "?subject=" + encodeURIComponent("’n Foto van Oupa Attie");
+        em.hidden = false;
+      }
     }
   }
 

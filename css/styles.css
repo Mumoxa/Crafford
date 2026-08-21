@@ -1658,3 +1658,107 @@ p {
     transform: none;
   }
 }
+
+/* ---------- Deel (familie-bydraes) ---------- */
+.deel {
+  background:
+    radial-gradient(120% 90% at 15% 0%, rgba(31, 77, 92, 0.55), transparent 60%),
+    linear-gradient(180deg, #0d1a24 0%, #0b1722 100%);
+}
+
+.deel .section-title {
+  font-size: clamp(2.2rem, 5.5vw, 4rem);
+}
+
+.deel-grid {
+  margin-top: 2.4rem;
+  display: grid;
+  gap: 1.2rem;
+  grid-template-columns: 1.45fr 1fr 1fr;
+  align-items: stretch;
+}
+
+.deel-card {
+  position: relative;
+  padding: 1.7rem 1.5rem 1.9rem;
+  background: var(--glass);
+  border: 1px solid rgba(224, 164, 90, 0.24);
+  border-radius: 1.15rem;
+  backdrop-filter: blur(6px);
+}
+
+.deel-card h3 {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.7rem;
+  margin: 0 0 1rem;
+  color: var(--cream);
+}
+
+.deel-hoof {
+  border-color: rgba(224, 164, 90, 0.5);
+  box-shadow: 0 1.5rem 3.5rem rgba(0, 0, 0, 0.35);
+}
+
+.deel-stappe {
+  list-style: none;
+  margin: 0 0 1.4rem;
+  padding: 0;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.deel-stappe li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  color: var(--cream-dim);
+  line-height: 1.5;
+}
+
+.deel-stappe li em {
+  color: var(--gold);
+  font-style: normal;
+}
+
+.deel-stappe span {
+  flex: 0 0 auto;
+  width: 1.7rem;
+  height: 1.7rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  font-size: 0.8rem;
+  color: var(--gold);
+  transform: translateY(0.25rem);
+}
+
+.deel-card .btn {
+  margin-bottom: 1.1rem;
+}
+
+.deel-note {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--cream-dim);
+}
+
+.deel-note code {
+  font-size: 0.85em;
+  color: var(--gold);
+  word-break: break-all;
+}
+
+.deel-card p {
+  color: var(--cream-dim);
+  margin: 0 0 1.2rem;
+}
+
+@media (max-width: 960px) {
+  .deel-grid {
+    grid-template-columns: 1fr;
+  }
+}
