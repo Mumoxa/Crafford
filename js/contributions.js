@@ -50,3 +50,6 @@ window.CRAFFORD_CONTRIB = {
 if (window.CRAFFORD && Array.isArray(window.CRAFFORD.memories)) {
   window.CRAFFORD.memories.push(...window.CRAFFORD_CONTRIB.memories);
 }
+
+/* Load Google Drive contributions synchronously before app.js initializes. */
+document.write('<script src="js/google-drive-contributions.js"><\\/script>');
