@@ -20,7 +20,7 @@ window.CRAFFORD = {
   welcome: [
     "Dit is nie ’n graf nie, en dit is nie ’n museum nie.",
     "Dit is ’n stoep, ’n sinkhuisie...",
-    "Wanneer die verlange hard word — op ’n Sondag, by ’n braai, as die wind van die water af soos hy ruik — kom hierheen. Loop deur die tydlyn. Speel sy stem en herleef weer ’n paar spesiale oomblike saam met hom.",
+    "Wanneer die verlange hard word — op ’n Sondag, by ’n braai, as die reuk van rum & maple by jou spook - kom hierheen. Loop deur die tydlyn. Speel sy stem en herleef weer ’n paar spesiale oomblike saam met hom.",
     "Bly so lank as jy wil. Hy sou vir jou ’n ietsie geoffer het.",
   ],
   portrait: "assets/photos/portret-2021.jpg",
