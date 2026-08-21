@@ -36,24 +36,24 @@ jobs:
           git fetch origin main
           git reset --hard origin/main
 
-      - name: Pull family photos from Google Drive
+      - name: Pull family media from Google Drive
         env:
           GOOGLE_DRIVE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_DRIVE_SERVICE_ACCOUNT }}
           GOOGLE_DRIVE_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_FOLDER_ID }}
           GOOGLE_DRIVE_BATCH_SIZE: "40"
         run: python3 scripts/sync-google-drive.py
 
-      - name: Commit new family photos
+      - name: Commit new family media
         id: commit
         run: |
           git config user.name "crafford-family-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add assets/photos/google-drive js/google-drive-contributions.js data/google-drive-manifest.json
+          git add assets/photos/google-drive assets/voices/google-drive js/google-drive-contributions.js data/google-drive-manifest.json
           if git diff --cached --quiet; then
-            echo "No new or changed Google Drive photos."
+            echo "No new or changed Google Drive media."
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
-            git commit -m "Photos: sync family Google Drive"
+            git commit -m "Media: sync family Google Drive"
             git push origin main
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
