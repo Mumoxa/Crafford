@@ -48,6 +48,7 @@
         <a href="#timeline">Tydlyn</a>
         <a href="#voice">Sy stem</a>
         <a href="#album">Album</a>
+        <a href="#deel">Deel</a>
         <a href="#stoep">Stoep</a>
       </nav>
       <div class="nav-actions">
@@ -71,6 +72,7 @@
       <a href="#timeline">Tydlyn</a>
       <a href="#voice">Sy stem</a>
       <a href="#album">Album</a>
+      <a href="#deel">Deel</a>
       <a href="#stoep">Die stoep</a>
       <button class="btn btn-gold" type="button" data-sit>Sit by hom</button>
     </div>
@@ -162,6 +164,7 @@
               <button class="filter" type="button" data-filter="laugh">Sy lag</button>
               <button class="filter" type="button" data-filter="ride">Motorfiets</button>
               <button class="filter" type="button" data-filter="home">Die stoep</button>
+              <button class="filter" type="button" data-filter="family">Familie</button>
             </div>
           </div>
           <div class="year-nav" id="year-nav"></div>
@@ -221,6 +224,50 @@
         </div>
       </section>
 
+      <section class="section deel" id="deel">
+        <div class="wrap">
+          <p class="section-kicker">Deel</p>
+          <h2 class="section-title">Het jy ’n foto van hom?</h2>
+          <p class="section-lead">
+            Die album is nooit klaar nie. Êrens in ’n laai, op ’n foon, in ’n WhatsApp van jare terug —
+            daar is nog ’n Attie wat niemand hier gesien het nie. Deel dit: die werf sit dit self op die
+            tydlyn, op sy eie datum.
+          </p>
+          <div class="deel-grid">
+            <article class="deel-card deel-hoof">
+              <h3>Die familie-vak</h3>
+              <ol class="deel-stappe">
+                <li><span>1</span> Maak die vak oop (knoppie hier onder).</li>
+                <li><span>2</span> Sleep jou foto’s, video’s of stemnotas in — enige naam is goed.</li>
+                <li><span>3</span> Klik op <em>Commit changes</em>. Klaar.</li>
+              </ol>
+              <a class="btn btn-gold" href="https://github.com/Mumoxa/Crafford/tree/main/uploads" target="_blank" rel="noopener">Maak die familie-vak oop</a>
+              <p class="deel-note">
+                As die lêernaam ’n datum het (soos <code>IMG-20210412-WA0020</code> of
+                <code>20120804_100209</code>) of die foto se inliging een, gaan dit outomaties na die
+                regte plek op die tydlyn. Video’s en stemnotas word ook verwelkom — hulle kry hulle
+                eie plekkie by “Sy stem”.
+              </p>
+            </article>
+            <article class="deel-card" id="deel-whatsapp" hidden>
+              <h3>Stuur dit op WhatsApp</h3>
+              <p>
+                Dit wat almal kan doen. Stuur die foto of video — die familie wat die werf oppas,
+                laai dit dan in die vak in.
+              </p>
+              <a class="btn btn-ghost" href="#" target="_blank" rel="noopener">WhatsApp die familie</a>
+            </article>
+            <article class="deel-card" id="deel-email" hidden>
+              <h3>Stuur ’n e-pos</h3>
+              <p>
+                Heg die foto’s aan ’n e-pos en stuur. Skryf gerus daarby wie dit geneem het en wanneer.
+              </p>
+              <a class="btn btn-ghost" href="#" target="_blank" rel="noopener">Skryf ’n e-pos</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <section class="section stoep" id="stoep">
         <img class="stoep-bg" src="assets/images/veld-night.jpg" alt="Sterre oor die bosveld" />
         <div class="stoep-shade"></div>
@@ -250,9 +297,10 @@
       <em>Rus sag, Oupa. Tot siens — nie totsiens vir altyd nie.</em>
       <p>Crafford-familie · ’n stoep op die internet</p>
       <p class="how-to">
-        <strong>’n Herinnering bysit:</strong> sit foto’s in <code>assets/photos</code>, video’s in
-        <code>assets/videos</code>, stemnotas in <code>assets/voices</code> — maak dan
-        <code>js/content.js</code> oop.
+        <strong>’n Herinnering bysit:</strong> die maklikste pad is die <a href="#deel">Deel</a>-bladsy —
+        laai in die familie-vak (<code>uploads/</code>) en die werf plaas dit self op die tydlyn. Of sit
+        foto’s in <code>assets/photos</code>, video’s in <code>assets/videos</code>, stemnotas in
+        <code>assets/voices</code> — maak dan <code>js/content.js</code> oop.
       </p>
     </footer>
 
@@ -281,6 +329,13 @@
           <path d="M4 15l4-4 4 4 3-3 5 5" />
         </svg>
         Album
+      </a>
+      <a href="#deel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <path d="M4 8h3l2-2h6l2 2h3v11H4z" />
+          <circle cx="12" cy="13" r="3.2" />
+        </svg>
+        Deel
       </a>
       <a href="#stoep">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
@@ -320,6 +375,7 @@
     </div>
 
     <script src="js/content.js"></script>
+    <script src="js/contributions.js"></script>
     <script src="js/app.js"></script>
   </body>
 </html>
