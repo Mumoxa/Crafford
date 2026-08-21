@@ -1,0 +1,44 @@
+name: Sync Google Drive family photos
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */6 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install google-api-python-client google-auth pillow
+
+      - name: Pull family photos from Google Drive
+        env:
+          GOOGLE_DRIVE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_DRIVE_SERVICE_ACCOUNT }}
+          GOOGLE_DRIVE_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_FOLDER_ID }}
+        run: python3 scripts/sync-google-drive.py
+
+      - name: Commit new family photos
+        run: |
+          git config user.name "crafford-family-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add assets/photos/google-drive js/google-drive-contributions.js
+          if git diff --cached --quiet; then
+            echo "No new or changed Google Drive photos."
+          else
+            git commit -m "Photos: sync family Google Drive"
+            git push
+          fi
