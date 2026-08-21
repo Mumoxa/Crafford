@@ -19,9 +19,9 @@ window.CRAFFORD = {
   welcomeTitle: "Trek ’n stoel nader",
   welcome: [
     "Dit is nie ’n graf nie, en dit is nie ’n museum nie.",
-    "Dit is ’n stoep.",
-    "Wanneer die verlange hard word — op ’n Sondag, by ’n braai, as die wind van die water af soos hy ruik — kom hierheen. Loop die tydlyn. Speel sy stem. Kyk na die foto’s tot jy die een kry waar hy midde-in ’n lag is.",
-    "Bly so lank as wat jy moet. Hy sou vir jou koffie gemaak het.",
+    "Dit is ’n stoep, ’n sinkhuisie...",
+    "Wanneer die verlange hard word — op ’n Sondag, by ’n braai, as die wind van die water af soos hy ruik — kom hierheen. Loop deur die tydlyn. Speel sy stem en herleef weer ’n paar spesiale oomblike saam met hom.",
+    "Bly so lank as jy wil. Hy sou vir jou ’n ietsie geoffer het.",
   ],
   portrait: "assets/photos/portret-2021.jpg",
 
